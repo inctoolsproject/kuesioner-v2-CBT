@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Facade;
 
 return [
-
+    'urlApi' => env('URL_API', 'https://api-sikad.itenas.ac.id/public/4p151k4dn0w/'),
+    'API_KEY' => env('APIKEY', '284a13407bb5660a4b725312af37b814186056c2'),
+    'API_KEY2' => env('APIKEY2', '7ce3f9e1000168b512addc1c075ba9cc'),
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -185,6 +187,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Yajra\DataTables\DataTablesServiceProvider::class,
 
         /*
          * Application Service Providers...

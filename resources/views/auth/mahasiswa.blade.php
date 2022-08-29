@@ -1,0 +1,21 @@
+@extends('auth.layouts')
+
+@section('content')
+    <form method="post" action="{{ route('auth.mahasiswa.login.submit') }}" class="sign-in-form">
+        @csrf
+        <h2 class="title">Login Mahasiswa</h2>
+        <h4 style="color: green;"> Silahkan Login menggunakan Username NRP dan Password yang sama seperti di
+            SIKAD.</h4>
+        <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" class="form-control form-control-user" id="username" name="username"
+                placeholder="Username (NRP)" value="">
+        </div>
+        <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="password" class="form-control form-control-user" id="password" name="password"
+                placeholder="Password (Password di SIKAD)">
+        </div>
+        <button type="submit" class="btn btn-block login-btn mb-4">Login</button>
+    </form>
+@endsection

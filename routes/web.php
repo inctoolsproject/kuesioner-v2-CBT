@@ -14,7 +14,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.index');
 });
 
-// Authentication 
+// Route Group Auth Mahasiswa, Dosen dan Tendik
+Route::name('auth.')->group(function () {
+    Route::name('mahasiswa.')->prefix('mahasiswa')->group(function () {
+        Route::get('/login', [\App\Http\Controllers\Auth\MahasiswaController::class, 'showLoginForm'])->name('login');
+        Route::post('/login',  [\App\Http\Controllers\Auth\MahasiswaController::class, 'login'])->name('login.submit');
+        Route::post('/logout',  [\App\Http\Controllers\Auth\MahasiswaController::class, 'logout'])->name('logout');
+    });
+});
+
+
+// Route Kusioner Mahasiswa
+Route::name('mahasiswa.')->prefix('mahasiswa')->group(function () {
+    Route::name('akademik.')->prefix('akademik')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Mahasiswa\AkademikController::class, 'index'])->name('index');
+    });
+});
