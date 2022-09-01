@@ -13,22 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('responden_akademik', function (Blueprint $table) {
+        Schema::create('responden_sarpras', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
             $table->string('username');
             $table->tinyInteger('kode_fakultas');
             $table->tinyInteger('kode_prodi');
-            $table->integer('kode_matkkul')->index();
-            $table->string('kelas', 2)->index();
-            $table->string('nama_matkul');
-            $table->string('nodos', 9);
-            $table->string('nama_dosen');
             $table->enum('tipe', ['mahasiswa', 'dosen', 'tendik']);
             $table->string('saran');
             $table->float('indeks');
-            $table->unsignedBigInteger('kuesioner_akademik_id');
-            $table->foreign('kuesioner_akademik_id')->references('id')->on('kuesioner_akademik')->onDelete('cascade');
+            $table->unsignedBigInteger('kuesioner_sarpras_id');
+            $table->foreign('kuesioner_sarpras_id')->references('id')->on('kuesioner_sarpras')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -40,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('responden_akademik');
+        Schema::dropIfExists('responden_sarpras');
     }
 };

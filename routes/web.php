@@ -34,6 +34,11 @@ Route::name('mahasiswa.')->prefix('mahasiswa')->middleware(['isLogin'])->group(f
         Route::get('/{id}', [\App\Http\Controllers\Mahasiswa\AkademikController::class, 'show'])->name('show');
         Route::post('/{id}', [\App\Http\Controllers\Mahasiswa\AkademikController::class, 'store'])->name('store');
     });
+    Route::name('sarpras.')->prefix('sarpras')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Mahasiswa\SarprasController::class, 'index'])->name('index');
+        Route::get('/{id}', [\App\Http\Controllers\Mahasiswa\SarprasController::class, 'show'])->name('show');
+        Route::post('/{id}', [\App\Http\Controllers\Mahasiswa\SarprasController::class, 'store'])->name('store');
+    });
 });
 
 // Route API

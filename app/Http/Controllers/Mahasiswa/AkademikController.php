@@ -20,8 +20,6 @@ class AkademikController extends Controller
     {
         $kuesioner = KuesionerAkademik::with('pertanyaan.jawaban')->find($id);
         $userSession = session('mahasiswa');
-        // $filled = RespondenAkademik::with(['detail'])->where('kuesioner_akademik_id', $id)->where('username', session('mahasiswa')['nimhsMSMHS'])->get();
-        // dd($filled);
         return view('mahasiswa.akademik.show', compact('kuesioner', 'userSession'));
     }
 

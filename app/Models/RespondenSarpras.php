@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RespondenAkademik extends Model
+class RespondenSarpras extends Model
 {
     use HasFactory;
-    protected $table = 'responden_akademik';
+    protected $table = 'responden_sarpras';
     protected $guarded = [];
 
     public function kuesioner()
     {
-        return $this->belongsTo(KuesionerAkademik::class);
+        return $this->belongsTo(KuesionerSarpras::class);
     }
 
     public function detail()
     {
-        return $this->hasMany(DetailRespondenAkademik::class);
+        return $this->hasMany(DetailRespondenSarpras::class);
     }
 }

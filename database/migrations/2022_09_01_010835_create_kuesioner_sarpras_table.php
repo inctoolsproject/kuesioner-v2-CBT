@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('kuesioner_akademik', function (Blueprint $table) {
+        Schema::create('kuesioner_sarpras', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
             $table->string('keterangan')->nullable();
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kuesioner_akademik');
+        Schema::dropIfExists('kuesioner_sarpras');
     }
 };

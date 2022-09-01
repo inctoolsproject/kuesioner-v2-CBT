@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('kuesioner_akademik', function (Blueprint $table) {
+        Schema::create('pertanyaan_sarpras', function (Blueprint $table) {
             $table->id();
-            $table->string('judul');
-            $table->string('keterangan')->nullable();
-            $table->enum('tipe', ['mahasiswa', 'dosen', 'tendik']);
-            $table->string('semester')->index();
-            $table->string('kegiatan', 15);
+            $table->string('pertanyaan');
+            $table->integer('nomor');
+            $table->unsignedBigInteger('kuesioner_sarpras_id');
+            $table->foreign('kuesioner_sarpras_id')->references('id')->on('kuesioner_sarpras')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kuesioner_akademik');
+        Schema::dropIfExists('pertanyaan_sarpras');
     }
 };

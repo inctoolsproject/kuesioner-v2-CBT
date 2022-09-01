@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-xl">
 
-        <h1 class="app-page-title">Kuesioner Akademik</h1>
+        <h1 class="app-page-title">Kuesioner Sarana Prasarana</h1>
         @if (session('success'))
             <div class="success-session" data-flashdata="{{ session('success') }}"></div>
         @elseif (session('error'))
@@ -12,15 +12,13 @@
         <div class="app-card alert shadow-sm mb-4 border-left-decoration">
             <div class="inner">
                 <div class="app-card-body p-3 p-lg-4">
-                    <h3 class="mb-3">Instrumen Penilaian Efektivitas Proses Pembelajaran Online</h3>
+                    <h3 class="mb-3">Kuesioner Kepuasan Pengguna Layanan Bidang Keuangan Dan Sarana-Prasarana Di Itenas
+                    </h3>
                     <div class="row gx-5 gy-3">
                         <div class="col-12">
                             <div>
-                                Kuesioner ini menanyakan pendapat anda mengenai Pembelajaran dan Suasana Akademik selama
-                                semester ini. Pengumpulan data menggunakan kuesioner ini bertujuan mengukur keefektifan
-                                kegiatan belajar daring yang telah dilakukan. Berikan tanggapan berdasarkan pendapat sendiri
-                                dan bukan pandangan/pendapat orang lain. Kami mengucapkan banyak terima kasih atas
-                                partisipasinya dalam pengisian kuesioner ini.
+                                Kuesioner ini menanyakan pendapat Anda mengenai pelayanan pada bidang keuangan dan
+                                sarana-prasarana di Itenas.
                             </div>
                         </div>
                         <!--//col-->
