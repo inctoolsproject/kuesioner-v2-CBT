@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
@@ -29,6 +30,7 @@ class MahasiswaController extends Controller
         if ($resjson['success']) {
             $request->session()->put('mahasiswa', $resjson['user']);
             $request->session()->put('login', 'mahasiswa');
+            $request->session()->put('islogin', true);
             return redirect()->route('mahasiswa.akademik.index');
         } else {
             return redirect()->route('auth.mahasiswa.login')->with('error', 'Username atau Password salah!');
