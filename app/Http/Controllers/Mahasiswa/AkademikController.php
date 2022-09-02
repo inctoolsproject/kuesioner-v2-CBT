@@ -12,7 +12,7 @@ class AkademikController extends Controller
 {
     public function index()
     {
-        $kuesioner = KuesionerAkademik::forMahasiswa()->get(['id', 'judul', 'semester', 'kegiatan']);
+        $kuesioner = KuesionerAkademik::forMahasiswa()->orderBy('id', 'desc')->get();
         return view('mahasiswa.akademik.index', compact('kuesioner'));
     }
 

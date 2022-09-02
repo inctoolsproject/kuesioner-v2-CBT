@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Mahasiswa;
 use App\Http\Controllers\Controller;
 use App\Models\KuesionerSarpras;
 use App\Models\RespondenSarpras;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,7 +13,9 @@ class SarprasController extends Controller
 {
     public function index()
     {
-        $kuesioner = KuesionerSarpras::forMahasiswa()->get(['id', 'judul', 'semester', 'kegiatan']);
+        $kuesioner = KuesionerSarpras::with(['responden' => function (Builder $query) {
+            return $query->where('username', session('mahasiswa')['nimhsMSMHS'])->exists();
+        }])->forMahasiswa()->orderBy('id', 'desc')->get();
         return view('mahasiswa.sarpras.index', compact('kuesioner'));
     }
 

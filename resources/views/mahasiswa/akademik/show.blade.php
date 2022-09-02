@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-12 col-md-9">
                             <p class="form-control-static" style="color:green">Kuesioner ini terdiri
-                                dari 12 butir
+                                dari {{ count($kuesioner->pertanyaan) }} butir
                                 pertanyaan dengan bentuk jawaban pilihan ganda yang terdiri dari 4
                                 (empat) pilihan jawaban.
                                 Anda dapat memilih satu pilihan sesuai pendapat pribadi.</p>

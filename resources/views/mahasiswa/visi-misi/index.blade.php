@@ -32,7 +32,7 @@
                             <select class="form-select my-2" id="select-kuesioner">
                                 @foreach ($kuesioner as $kue)
                                     <option value="{{ $kue->id }}">
-                                        {{ substr_replace($kue->semester, '/', 4, 0) . ' - ' . $kue->kegiatan }}
+                                        {{ substr_replace($kue->semester, '/', 4, 0) . ' - ' . $kue->kegiatan . (!$kue->responden->isEmpty() ? ' (Sudah Diisi)' : '') }}
                                     </option>
                                 @endforeach
                             </select>
@@ -76,7 +76,7 @@
             // Start Kuesioner
             $('#btn-start').click(function() {
                 let kuesioner = $('#select-kuesioner').val();
-                window.open(`${window.baseUrl}/mahasiswa/akademik/${kuesioner}`, '_blank');
+                window.open(`${window.baseUrl}/mahasiswa/visi-misi/${kuesioner}`, '_blank');
             });
         });
     </script>

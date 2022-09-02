@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DetailRespondenVisiMisi;
 use App\Models\KuesionerVisiMisi;
 use App\Models\RespondenVisiMisi;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,7 +14,9 @@ class VisiMisiController extends Controller
 {
     public function index()
     {
-        $kuesioner = KuesionerVisiMisi::forMahasiswa()->get(['id', 'judul', 'semester', 'kegiatan']);
+        $kuesioner = KuesionerVisiMisi::with(['responden' => function (Builder $query) {
+            return $query->where('username', session('mahasiswa')['nimhsMSMHS'])->exists();
+        }])->forMahasiswa()->orderBy('id', 'desc')->get();
         return view('mahasiswa.visi-misi.index', compact('kuesioner'));
     }
 
