@@ -22,4 +22,18 @@ class MataKuliahController extends Controller
         $filled = RespondenAkademik::with(['detail'])->where('kuesioner_akademik_id', $id)->where('username', session('mahasiswa')['nimhsMSMHS'])->get();
         return response()->json(['jadwal' => $jadwal, 'filled' => $filled]);
     }
+
+    public function dosen(Request $request, $id)
+    {
+        $response = Http::asForm()->post(config('app.urlApi') . 'dosen/jadwal_kuliah', [
+            'nodos' => $request->nodos,
+            'smt' => $request->semester,
+            'APIKEY' => config('app.API_KEY')
+        ]);
+        $res = $response->json();
+        $jadwal = $res['data'];
+
+        $filled = RespondenAkademik::with(['detail'])->where('kuesioner_akademik_id', $id)->where('username', session('dosen')['nodosMSDOS'])->get();
+        return response()->json(['jadwal' => $jadwal, 'filled' => $filled]);
+    }
 }

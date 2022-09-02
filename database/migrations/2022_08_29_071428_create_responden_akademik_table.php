@@ -22,8 +22,8 @@ return new class extends Migration
             $table->integer('kode_matkkul')->index();
             $table->string('kelas', 2)->index();
             $table->string('nama_matkul');
-            $table->string('nodos', 9);
-            $table->string('nama_dosen');
+            $table->string('nodos', 9)->nullable();
+            $table->string('nama_dosen')->nullable();
             $table->enum('tipe', ['mahasiswa', 'dosen', 'tendik']);
             $table->string('saran');
             $table->float('indeks');

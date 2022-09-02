@@ -7,7 +7,7 @@
                 Sistem Kuesioner Umpan Balik terhadap Pelayanan Itenas
             </h6>
             <div class="card-body">
-                <button type="button" class="btn btn-primary"><a href="#"
+                <button type="button" class="btn btn-primary"><a href="{{ route('auth.dosen.login') }}"
                         style="text-decoration:none; color:white; font-size:large">Dosen</button>
                 <button type="button" class="btn btn-primary"><a href="{{ route('auth.mahasiswa.login') }}"
                         style="text-decoration:none; color:white; font-size:large">Mahasiswa</button>
