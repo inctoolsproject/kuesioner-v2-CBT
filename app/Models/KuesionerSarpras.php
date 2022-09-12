@@ -26,8 +26,14 @@ class KuesionerSarpras extends Model
     {
         return $query->where('tipe', 'mahasiswa');
     }
+
     public function scopeForDosen($query)
     {
         return $query->where('tipe', 'dosen');
+    }
+
+    public function scopeForTendik($query)
+    {
+        return $query->where('tipe', 'tendik');
     }
 }

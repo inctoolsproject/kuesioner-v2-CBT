@@ -27,6 +27,10 @@ Route::name('auth.')->group(function () {
         Route::get('/login', [\App\Http\Controllers\Auth\DosenController::class, 'showLoginForm'])->name('login');
         Route::post('/login',  [\App\Http\Controllers\Auth\DosenController::class, 'login'])->name('login.submit');
     });
+    Route::name('tendik.')->prefix('tendik')->group(function () {
+        Route::get('/login', [\App\Http\Controllers\Auth\TendikController::class, 'showLoginForm'])->name('login');
+        Route::post('/login',  [\App\Http\Controllers\Auth\TendikController::class, 'login'])->name('login.submit');
+    });
     Route::get('/logout',  [\App\Http\Controllers\Auth\AuthController::class, 'logout'])->name('logout');
 });
 
@@ -70,6 +74,19 @@ Route::name('dosen.')->prefix('dosen')->middleware(['isLogin'])->group(function 
         Route::get('/', [\App\Http\Controllers\Dosen\LP2MController::class, 'index'])->name('index');
         Route::get('/{id}', [\App\Http\Controllers\Dosen\LP2MController::class, 'show'])->name('show');
         Route::post('/{id}', [\App\Http\Controllers\Dosen\LP2MController::class, 'store'])->name('store');
+    });
+});
+
+Route::name('tendik.')->prefix('tendik')->middleware(['auth'])->group(function () {
+    Route::name('sarpras.')->prefix('sarpras')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Tendik\SarprasController::class, 'index'])->name('index');
+        Route::get('/{id}', [\App\Http\Controllers\Tendik\SarprasController::class, 'show'])->name('show');
+        Route::post('/{id}', [\App\Http\Controllers\Tendik\SarprasController::class, 'store'])->name('store');
+    });
+    Route::name('visi-misi.')->prefix('visi-misi')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Tendik\VisiMisiController::class, 'index'])->name('index');
+        Route::get('/{id}', [\App\Http\Controllers\Tendik\VisiMisiController::class, 'show'])->name('show');
+        Route::post('/{id}', [\App\Http\Controllers\Tendik\VisiMisiController::class, 'store'])->name('store');
     });
 });
 

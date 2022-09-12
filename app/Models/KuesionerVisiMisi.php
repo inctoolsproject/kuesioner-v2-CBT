@@ -29,4 +29,8 @@ class KuesionerVisiMisi extends Model
     {
         return $query->where('tipe', 'dosen');
     }
+    public function scopeForTendik($query)
+    {
+        return $query->where('tipe', 'tendik');
+    }
 }

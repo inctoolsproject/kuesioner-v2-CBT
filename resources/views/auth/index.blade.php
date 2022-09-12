@@ -11,7 +11,7 @@
                         style="text-decoration:none; color:white; font-size:large">Dosen</button>
                 <button type="button" class="btn btn-primary"><a href="{{ route('auth.mahasiswa.login') }}"
                         style="text-decoration:none; color:white; font-size:large">Mahasiswa</button>
-                <button type="button" class="btn btn-primary"><a href="#"
+                <button type="button" class="btn btn-primary"><a href="{{ route('auth.tendik.login') }}"
                         style="text-decoration:none; color:white; font-size:large">Tendik</button>
             </div>
     </form>
