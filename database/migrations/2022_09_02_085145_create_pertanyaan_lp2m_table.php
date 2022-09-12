@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('jawaban_visi_misi', function (Blueprint $table) {
+        Schema::create('pertanyaan_lp2m', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('pertanyaan_visi_misi_id');
-            $table->foreign('pertanyaan_visi_misi_id')->references('id')->on('pertanyaan_visi_misi')->onDelete('cascade');
-            $table->string('jawaban');
-            $table->integer('nilai');
+            $table->string('pertanyaan');
+            $table->integer('nomor');
+            $table->unsignedBigInteger('kuesioner_lp2m_id');
+            $table->foreign('kuesioner_lp2m_id')->references('id')->on('kuesioner_lp2m')->onDelete('cascade');
+            $table->tinyInteger('tipe'); // 1 = radio, 2 = checkbox, 3 = textarea, 4 = text
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jawaban_visi_misi');
+        Schema::dropIfExists('pertanyaan_lp2m');
     }
 };

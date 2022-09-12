@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('jawaban_visi_misi', function (Blueprint $table) {
+        Schema::create('kuesioner_lp2m', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('pertanyaan_visi_misi_id');
-            $table->foreign('pertanyaan_visi_misi_id')->references('id')->on('pertanyaan_visi_misi')->onDelete('cascade');
-            $table->string('jawaban');
-            $table->integer('nilai');
+            $table->string('judul');
+            $table->string('keterangan')->nullable();
+            $table->enum('tipe', ['mahasiswa', 'dosen', 'tendik']);
+            $table->string('semester')->index();
+            $table->string('kegiatan', 15);
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jawaban_visi_misi');
+        Schema::dropIfExists('kuesioner_lp2m');
     }
 };

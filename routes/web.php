@@ -66,6 +66,11 @@ Route::name('dosen.')->prefix('dosen')->middleware(['isLogin'])->group(function 
         Route::get('/{id}', [\App\Http\Controllers\Dosen\VisiMisiController::class, 'show'])->name('show');
         Route::post('/{id}', [\App\Http\Controllers\Dosen\VisiMisiController::class, 'store'])->name('store');
     });
+    Route::name('lp2m.')->prefix('lp2m')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Dosen\LP2MController::class, 'index'])->name('index');
+        Route::get('/{id}', [\App\Http\Controllers\Dosen\LP2MController::class, 'show'])->name('show');
+        Route::post('/{id}', [\App\Http\Controllers\Dosen\LP2MController::class, 'store'])->name('store');
+    });
 });
 
 // Route API
