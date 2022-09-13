@@ -488,13 +488,15 @@
                                         <li class="submenu-item"><a class="submenu-link" href="#">Kuesioner
                                                 Visi Misi</a>
                                         </li>
-                                        <li class="submenu-item"><a class="submenu-link" href="#">Kuesioner
-                                                Fakultas</a>
+                                        <li class="submenu-item"><a class="submenu-link"
+                                                href="{{ route('admin.fakultas.index') }}">Kuesioner Fakultas</a>
                                         </li>
-                                        <li class="submenu-item"><a class="submenu-link" href="#">Kuesioner
+                                        <li class="submenu-item"><a class="submenu-link"
+                                                href="{{ route('admin.lp2m.index') }}">Kuesioner
                                                 LP2M</a>
                                         </li>
-                                        <li class="submenu-item"><a class="submenu-link" href="#">Kuesioner
+                                        <li class="submenu-item"><a class="submenu-link"
+                                                href="{{ route('admin.sarpras.index') }}">Kuesioner
                                                 Sarana Prasarana</a>
                                         </li>
                                     </ul>

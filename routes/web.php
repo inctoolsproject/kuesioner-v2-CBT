@@ -42,6 +42,18 @@ Route::name('admin.')->prefix('admin')->middleware(['auth', 'isAdmin'])->group(f
     // Route Group Admin Akademik
     Route::get('/akademik/list', [\App\Http\Controllers\Admin\AkademikController::class, 'list'])->name('akademik.list');
     Route::resource('akademik', \App\Http\Controllers\Admin\AkademikController::class);
+
+    // Route Group Admin Fakultas
+    Route::get('/fakultas/list', [\App\Http\Controllers\Admin\FakultasController::class, 'list'])->name('fakultas.list');
+    Route::resource('fakultas', \App\Http\Controllers\Admin\FakultasController::class);
+
+    // Route Group Admin LP2M
+    Route::get('/lp2m/list', [\App\Http\Controllers\Admin\LP2MController::class, 'list'])->name('lp2m.list');
+    Route::resource('lp2m', \App\Http\Controllers\Admin\LP2MController::class);
+
+    // Route Group Admin Sarpras
+    Route::get('/sarpras/list', [\App\Http\Controllers\Admin\SarprasController::class, 'list'])->name('sarpras.list');
+    Route::resource('sarpras', \App\Http\Controllers\Admin\SarprasController::class);
 });
 
 // Route Kusioner Mahasiswa

@@ -230,6 +230,6 @@ class AkademikController extends Controller
         $kuesioner = KuesionerAkademik::find($id);
         $kuesioner->delete();
 
-        return redirect()->route('admin.akademik.index')->with('success', 'Kuesioner berhasil dihapus');
+        return response()->json(['status' => TRUE]);
     }
 }
