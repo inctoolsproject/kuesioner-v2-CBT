@@ -38,6 +38,10 @@ Route::name('auth.')->group(function () {
 // Route Group Admin
 Route::name('admin.')->prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('index');
+
+    // Route Group Admin Akademik
+    Route::get('/akademik/list', [\App\Http\Controllers\Admin\AkademikController::class, 'list'])->name('akademik.list');
+    Route::resource('akademik', \App\Http\Controllers\Admin\AkademikController::class);
 });
 
 // Route Kusioner Mahasiswa
