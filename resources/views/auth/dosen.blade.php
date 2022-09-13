@@ -17,5 +17,7 @@
                 placeholder="Password (Password di SIKAD)">
         </div>
         <button type="submit" class="btn btn-block login-btn mb-4">Login</button>
+        <a href="{{ route('index') }}" class="btn btn-block login-btn mb-4"
+            style="align-items: center;display: flex;justify-content: center;">Kembali</a>
     </form>
 @endsection
