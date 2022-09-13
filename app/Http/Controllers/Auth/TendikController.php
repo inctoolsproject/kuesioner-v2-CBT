@@ -20,12 +20,20 @@ class TendikController extends Controller
             'username' => 'required|string|max:9',
             'password' => 'required|string|max:6',
         ]);
-
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            $request->session()->put('login', 'tendik');
-            $request->session()->put('islogin', true);
-            return redirect()->route('tendik.sarpras.index');
+        $loginAttempts = Auth::attempt($credentials);
+        if ($loginAttempts) {
+            $user = Auth::user();
+            if ($user->role == 'tendik') {
+                $request->session()->regenerate();
+                $request->session()->put('login', 'tendik');
+                $request->session()->put('islogin', true);
+                return redirect()->route('tendik.sarpras.index');
+            } else {
+                $request->session()->regenerate();
+                $request->session()->put('login', 'admin');
+                $request->session()->put('islogin', true);
+                return redirect()->route('admin.index');
+            }
         }
 
         return back()->with('error', 'Username atau Password salah!');

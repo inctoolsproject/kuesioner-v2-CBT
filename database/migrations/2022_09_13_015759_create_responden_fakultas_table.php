@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('respon_lp2m', function (Blueprint $table) {
+        Schema::create('responden_fakultas', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
             $table->string('username');
@@ -22,8 +22,8 @@ return new class extends Migration
             $table->enum('tipe', ['mahasiswa', 'dosen', 'tendik']);
             $table->string('saran');
             $table->float('indeks');
-            $table->unsignedBigInteger('kuesioner_lp2m_id');
-            $table->foreign('kuesioner_lp2m_id')->references('id')->on('kuesioner_lp2m')->onDelete('cascade');
+            $table->unsignedBigInteger('kuesioner_fakultas_id');
+            $table->foreign('kuesioner_fakultas_id')->references('id')->on('kuesioner_fakultas')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('responden_lp2m');
+        Schema::dropIfExists('responden_fakultas');
     }
 };

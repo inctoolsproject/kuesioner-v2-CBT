@@ -35,6 +35,11 @@ Route::name('auth.')->group(function () {
 });
 
 
+// Route Group Admin
+Route::name('admin.')->prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
+    Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('index');
+});
+
 // Route Kusioner Mahasiswa
 Route::name('mahasiswa.')->prefix('mahasiswa')->middleware(['isLogin'])->group(function () {
     Route::name('akademik.')->prefix('akademik')->group(function () {
@@ -64,6 +69,11 @@ Route::name('dosen.')->prefix('dosen')->middleware(['isLogin'])->group(function 
         Route::get('/', [\App\Http\Controllers\Dosen\SarprasController::class, 'index'])->name('index');
         Route::get('/{id}', [\App\Http\Controllers\Dosen\SarprasController::class, 'show'])->name('show');
         Route::post('/{id}', [\App\Http\Controllers\Dosen\SarprasController::class, 'store'])->name('store');
+    });
+    Route::name('fakultas.')->prefix('fakultas')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Dosen\FakultasController::class, 'index'])->name('index');
+        Route::get('/{id}', [\App\Http\Controllers\Dosen\FakultasController::class, 'show'])->name('show');
+        Route::post('/{id}', [\App\Http\Controllers\Dosen\FakultasController::class, 'store'])->name('store');
     });
     Route::name('visi-misi.')->prefix('visi-misi')->group(function () {
         Route::get('/', [\App\Http\Controllers\Dosen\VisiMisiController::class, 'index'])->name('index');
