@@ -54,6 +54,10 @@ Route::name('admin.')->prefix('admin')->middleware(['auth', 'isAdmin'])->group(f
     // Route Group Admin Sarpras
     Route::get('/sarpras/list', [\App\Http\Controllers\Admin\SarprasController::class, 'list'])->name('sarpras.list');
     Route::resource('sarpras', \App\Http\Controllers\Admin\SarprasController::class);
+
+    // Route Group Admin Visi Misi
+    Route::get('/visi-misi/list', [\App\Http\Controllers\Admin\VisiMisiController::class, 'list'])->name('visi-misi.list');
+    Route::resource('visi-misi', \App\Http\Controllers\Admin\VisiMisiController::class);
 });
 
 // Route Kusioner Mahasiswa

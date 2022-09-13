@@ -485,7 +485,8 @@
                                         <li class="submenu-item"><a class="submenu-link"
                                                 href="{{ route('admin.akademik.index') }}">Kuesioner
                                                 Akademik</a></li>
-                                        <li class="submenu-item"><a class="submenu-link" href="#">Kuesioner
+                                        <li class="submenu-item"><a class="submenu-link"
+                                                href="{{ route('admin.visi-misi.index') }}">Kuesioner
                                                 Visi Misi</a>
                                         </li>
                                         <li class="submenu-item"><a class="submenu-link"
