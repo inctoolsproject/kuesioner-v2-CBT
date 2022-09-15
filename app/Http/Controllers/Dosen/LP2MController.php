@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Dosen;
 use App\Http\Controllers\Controller;
 use App\Models\KuesionerLP2M;
 use App\Models\RespondenLP2M;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,7 +12,7 @@ class LP2MController extends Controller
 {
     public function index()
     {
-        $kuesioner = KuesionerLP2M::with(['responden' => function (Builder $query) {
+        $kuesioner = KuesionerLP2M::with(['responden' => function ($query) {
             return $query->where('username', session('dosen')['nodosMSDOS'])->exists();
         }])->forDosen()->orderBy('id', 'desc')->get();
         return view('dosen.lp2m.index', compact('kuesioner'));
@@ -21,7 +20,9 @@ class LP2MController extends Controller
 
     public function show($id)
     {
-        $kuesioner = KuesionerLP2M::with('pertanyaan.jawaban')->find($id);
+        $kuesioner = KuesionerLP2M::with(['pertanyaan' => function ($query) {
+            return $query->orderBy('nomor', 'asc');
+        }, 'pertanyaan.jawaban'])->find($id);
         $filled = RespondenLP2M::with('detail')->where('kuesioner_lp2m_id', $id)->where('username', session('dosen')['nodosMSDOS'])->first();
         $userSession = session('dosen');
         return view('dosen.lp2m.show', compact('kuesioner', 'userSession', 'filled'));

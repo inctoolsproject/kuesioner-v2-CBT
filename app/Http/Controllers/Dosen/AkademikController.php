@@ -18,7 +18,9 @@ class AkademikController extends Controller
 
     public function show($id)
     {
-        $kuesioner = KuesionerAkademik::with('pertanyaan.jawaban')->find($id);
+        $kuesioner = KuesionerAkademik::with(['pertanyaan' => function ($query) {
+            return $query->orderBy('nomor', 'asc');
+        }, 'pertanyaan.jawaban'])->find($id);
         $userSession = session('dosen');
         return view('dosen.akademik.show', compact('kuesioner', 'userSession'));
     }

@@ -48,7 +48,9 @@ class LP2MController extends Controller
 
     public function show($id)
     {
-        $kuesioner = KuesionerLP2M::with('pertanyaan.jawaban')->find($id);
+        $kuesioner = KuesionerLP2M::with(['pertanyaan' => function ($query) {
+            return $query->orderBy('nomor', 'asc');
+        }, 'pertanyaan.jawaban'])->find($id);
         return view('admin.lp2m.show', compact('kuesioner'));
     }
 

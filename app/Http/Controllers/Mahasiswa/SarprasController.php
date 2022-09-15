@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Mahasiswa;
 use App\Http\Controllers\Controller;
 use App\Models\KuesionerSarpras;
 use App\Models\RespondenSarpras;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,7 +12,7 @@ class SarprasController extends Controller
 {
     public function index()
     {
-        $kuesioner = KuesionerSarpras::with(['responden' => function (Builder $query) {
+        $kuesioner = KuesionerSarpras::with(['responden' => function ($query) {
             return $query->where('username', session('mahasiswa')['nimhsMSMHS'])->exists();
         }])->forMahasiswa()->orderBy('id', 'desc')->get();
         return view('mahasiswa.sarpras.index', compact('kuesioner'));
@@ -21,7 +20,9 @@ class SarprasController extends Controller
 
     public function show($id)
     {
-        $kuesioner = KuesionerSarpras::with('pertanyaan.jawaban')->find($id);
+        $kuesioner = KuesionerSarpras::with(['pertanyaan' => function ($query) {
+            return $query->orderBy('nomor', 'asc');
+        }, 'pertanyaan.jawaban'])->find($id);
         $filled = RespondenSarpras::with('detail')->where('kuesioner_sarpras_id', $id)->where('username', session('mahasiswa')['nimhsMSMHS'])->first();
         $userSession = session('mahasiswa');
         return view('mahasiswa.sarpras.show', compact('kuesioner', 'userSession', 'filled'));

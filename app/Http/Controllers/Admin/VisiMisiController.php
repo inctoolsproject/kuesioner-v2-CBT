@@ -53,7 +53,9 @@ class VisiMisiController extends Controller
 
     public function show($id)
     {
-        $kuesioner = KuesionerVisiMisi::with('pertanyaan.jawaban')->find($id);
+        $kuesioner = KuesionerVisiMisi::with(['pertanyaan' => function ($query) {
+            return $query->orderBy('nomor', 'asc');
+        }, 'pertanyaan.jawaban'])->find($id);
         return view('admin.visi-misi.show', compact('kuesioner'));
     }
 

@@ -94,7 +94,8 @@
                         @if (session('login') == 'mahasiswa')
                             <li class="nav-item">
                                 <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                                <a class="nav-link active" href="{{ route('mahasiswa.akademik.index') }}">
+                                <a class="nav-link @if (request()->routeIs('mahasiswa.akademik.*')) active @endif "
+                                    href="{{ route('mahasiswa.akademik.index') }}">
                                     <span class="nav-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                                             fill="currentColor" class="bi bi-mortarboard" viewBox="0 0 16 16">
@@ -111,7 +112,8 @@
                             <!--//nav-item-->
                             <li class="nav-item">
                                 <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                                <a class="nav-link" href="{{ route('mahasiswa.sarpras.index') }}">
+                                <a class="nav-link @if (request()->routeIs('mahasiswa.sarpras.*')) active @endif"
+                                    href="{{ route('mahasiswa.sarpras.index') }}">
                                     <span class="nav-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                                             fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
@@ -126,7 +128,8 @@
                             <!--//nav-item-->
                             <li class="nav-item">
                                 <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                                <a class="nav-link" href="{{ route('mahasiswa.visi-misi.index') }}">
+                                <a class="nav-link @if (request()->routeIs('mahasiswa.visi-misi.*')) active @endif"
+                                    href="{{ route('mahasiswa.visi-misi.index') }}">
                                     <span class="nav-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                                             fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
@@ -143,7 +146,8 @@
                         @elseif(session('login') == 'dosen')
                             <li class="nav-item">
                                 <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                                <a class="nav-link active" href="{{ route('dosen.akademik.index') }}">
+                                <a class="nav-link @if (request()->routeIs('dosen.akademik.*')) active @endif"
+                                    href="{{ route('dosen.akademik.index') }}">
                                     <span class="nav-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                                             fill="currentColor" class="bi bi-mortarboard" viewBox="0 0 16 16">
@@ -160,7 +164,8 @@
                             <!--//nav-item-->
                             <li class="nav-item">
                                 <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                                <a class="nav-link" href="{{ route('dosen.sarpras.index') }}">
+                                <a class="nav-link @if (request()->routeIs('dosen.sarpras.*')) active @endif"
+                                    href="{{ route('dosen.sarpras.index') }}">
                                     <span class="nav-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                                             fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
@@ -175,7 +180,8 @@
                             <!--//nav-item-->
                             <li class="nav-item">
                                 <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                                <a class="nav-link" href="{{ route('dosen.fakultas.index') }}">
+                                <a class="nav-link @if (request()->routeIs('dosen.fakultas.*')) active @endif"
+                                    href="{{ route('dosen.fakultas.index') }}">
                                     <span class="nav-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                                             fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
@@ -192,7 +198,8 @@
                             <!--//nav-item-->
                             <li class="nav-item">
                                 <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                                <a class="nav-link" href="{{ route('dosen.visi-misi.index') }}">
+                                <a class="nav-link @if (request()->routeIs('dosen.visi-misi.*')) active @endif"
+                                    href="{{ route('dosen.visi-misi.index') }}">
                                     <span class="nav-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                                             fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
@@ -208,7 +215,8 @@
                             </li>
                             <li class="nav-item">
                                 <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                                <a class="nav-link" href="{{ route('dosen.lp2m.index') }}">
+                                <a class="nav-link @if (request()->routeIs('dosen.lp2m.*')) active @endif"
+                                    href="{{ route('dosen.lp2m.index') }}">
                                     <span class="nav-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                                             fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
@@ -225,7 +233,8 @@
                         @elseif(session('login') == 'tendik')
                             <li class="nav-item">
                                 <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                                <a class="nav-link" href="{{ route('tendik.sarpras.index') }}">
+                                <a class="nav-link @if (request()->routeIs('tendik.sarpras.*')) active @endif"
+                                    href="{{ route('tendik.sarpras.index') }}">
                                     <span class="nav-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                                             fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
@@ -240,7 +249,8 @@
                             <!--//nav-item-->
                             <li class="nav-item">
                                 <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                                <a class="nav-link" href="{{ route('tendik.visi-misi.index') }}">
+                                <a class="nav-link @if (request()->routeIs('tendik.visi-misi.*')) active @endif"
+                                    href="{{ route('tendik.visi-misi.index') }}">
                                     <span class="nav-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                                             fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
@@ -255,7 +265,8 @@
                         @elseif(session('login') == 'admin')
                             <li class="nav-item">
                                 <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                                <a class="nav-link" href="{{ route('admin.index') }}">
+                                <a class="nav-link @if (request()->routeIs('admin.index')) active @endif"
+                                    href="{{ route('admin.index') }}">
                                     <span class="nav-icon">
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder"
                                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -272,8 +283,13 @@
                             <!--//nav-item-->
                             <li class="nav-item has-submenu">
                                 <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                                <a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse"
-                                    data-bs-target="#submenu-1" aria-expanded="false" aria-controls="submenu-1">
+                                <a class="nav-link submenu-toggle @if (request()->routeIs('admin.akademik.*') ||
+                                    request()->routeIs('admin.visi-misi.*') ||
+                                    request()->routeIs('admin.sarpras.*') ||
+                                    request()->routeIs('admin.lp2m.*') ||
+                                    request()->routeIs('admin.fakultas.*')) active @endif"
+                                    href="#" data-bs-toggle="collapse" data-bs-target="#submenu-1"
+                                    aria-expanded="false" aria-controls="submenu-1">
                                     <span class="nav-icon">
                                         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-files"

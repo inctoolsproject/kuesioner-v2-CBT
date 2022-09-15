@@ -53,7 +53,9 @@ class FakultasController extends Controller
 
     public function show($id)
     {
-        $kuesioner = KuesionerFakultas::with('pertanyaan.jawaban')->find($id);
+        $kuesioner = KuesionerFakultas::with(['pertanyaan' => function ($query) {
+            return $query->orderBy('nomor', 'asc');
+        }, 'pertanyaan.jawaban'])->find($id);
         return view('admin.fakultas.show', compact('kuesioner'));
     }
 

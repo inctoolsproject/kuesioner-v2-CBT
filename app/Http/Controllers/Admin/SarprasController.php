@@ -53,7 +53,9 @@ class SarprasController extends Controller
 
     public function show($id)
     {
-        $kuesioner = KuesionerSarpras::with('pertanyaan.jawaban')->find($id);
+        $kuesioner = KuesionerSarpras::with(['pertanyaan' => function ($query) {
+            return $query->orderBy('nomor', 'asc');
+        }, 'pertanyaan.jawaban'])->find($id);
         return view('admin.sarpras.show', compact('kuesioner'));
     }
 

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Dosen;
 use App\Http\Controllers\Controller;
 use App\Models\KuesionerFakultas;
 use App\Models\RespondenFakultas;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,7 +12,7 @@ class FakultasController extends Controller
 {
     public function index()
     {
-        $kuesioner = KuesionerFakultas::with(['responden' => function (Builder $query) {
+        $kuesioner = KuesionerFakultas::with(['responden' => function ($query) {
             return $query->where('username', session('dosen')['nodosMSDOS'])->exists();
         }])->forDosen()->orderBy('id', 'desc')->get();
         return view('dosen.fakultas.index', compact('kuesioner'));
@@ -21,7 +20,9 @@ class FakultasController extends Controller
 
     public function show($id)
     {
-        $kuesioner = KuesionerFakultas::with('pertanyaan.jawaban')->find($id);
+        $kuesioner = KuesionerFakultas::with(['pertanyaan' => function ($query) {
+            return $query->orderBy('nomor', 'asc');
+        }, 'pertanyaan.jawaban'])->find($id);
         $filled = RespondenFakultas::with('detail')->where('kuesioner_fakultas_id', $id)->where('username', session('dosen')['nodosMSDOS'])->first();
         $userSession = session('dosen');
         return view('dosen.fakultas.show', compact('kuesioner', 'userSession', 'filled'));
