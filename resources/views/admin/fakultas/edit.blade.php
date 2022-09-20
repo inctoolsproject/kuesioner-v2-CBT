@@ -142,8 +142,16 @@
                                     </label>
                                 </div>
                                 <div class="col-12 col-md-9">
-                                    <input type="text" class="form-control @error('kegiatan') is-invalid @enderror"
-                                        name="kegiatan" id="kegiatan" value="{{ $kuesioner->kegiatan }}">
+                                    <select class="form-select my-2 @error('kegiatan') is-invalid @enderror" id="kegiatan"
+                                        name="kegiatan">
+                                        <option>Pilih Kegiatan</option>
+                                        <option value="UTS" @if ($kuesioner->kegiatan == 'UTS') selected @endif>UTS
+                                        </option>
+                                        <option value="UAS" @if ($kuesioner->kegiatan == 'UAS') selected @endif>UAS
+                                        </option>
+                                        <option value="Semester" @if ($kuesioner->kegiatan == 'Semester') selected @endif>
+                                            Semester</option>
+                                    </select>
                                     @error('kegiatan')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

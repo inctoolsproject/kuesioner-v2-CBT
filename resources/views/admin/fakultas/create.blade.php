@@ -134,8 +134,13 @@
                                     </label>
                                 </div>
                                 <div class="col-12 col-md-9">
-                                    <input type="text" class="form-control @error('kegiatan') is-invalid @enderror"
-                                        name="kegiatan" id="kegiatan">
+                                    <select class="form-select my-2 @error('kegiatan') is-invalid @enderror" id="kegiatan"
+                                        name="kegiatan">
+                                        <option>Pilih Kegiatan</option>
+                                        <option value="UTS">UTS</option>
+                                        <option value="UAS">UAS</option>
+                                        <option value="Semester">Semester</option>
+                                    </select>
                                     @error('kegiatan')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
