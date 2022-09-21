@@ -41,6 +41,20 @@ Route::name('admin.')->prefix('admin')->middleware(['auth', 'isAdmin'])->group(f
 
     // Route Group Admin Akademik
     Route::get('/akademik/list', [\App\Http\Controllers\Admin\AkademikController::class, 'list'])->name('akademik.list');
+    // Kuesioner Mahasiswa
+    Route::get('/akademik/mahasiswa', [\App\Http\Controllers\Admin\AkademikController::class, 'mahasiswa'])->name('akademik.mahasiswa.index');
+    Route::get('/akademik/mahasiswa/list', [\App\Http\Controllers\Admin\AkademikController::class, 'mahasiswa_list'])->name('akademik.mahasiswa.list');
+    // Kepuasan Mahasiswa Per Prodi
+    Route::get('/akademik/kepuasan/mahasiswa', [\App\Http\Controllers\Admin\AkademikController::class, 'kepuasan_mahasiswa'])->name('akademik.kepuasan.mahasiswa.index');
+    Route::get('/akademik/kepuasan/mahasiswa/list', [\App\Http\Controllers\Admin\AkademikController::class, 'kepuasan_mahasiswa_list'])->name('akademik.kepuasan.mahasiswa.list');
+
+
+    // Kuesioner Dosen
+    Route::get('/akademik/dosen', [\App\Http\Controllers\Admin\AkademikController::class, 'dosen'])->name('akademik.dosen.index');
+    Route::get('/akademik/dosen/list', [\App\Http\Controllers\Admin\AkademikController::class, 'dosen_list'])->name('akademik.dosen.list');
+    // Kepuasan Dosen Per Prodi
+    Route::get('/akademik/kepuasan/dosen', [\App\Http\Controllers\Admin\AkademikController::class, 'kepuasan_dosen'])->name('akademik.kepuasan.dosen.index');
+    Route::get('/akademik/kepuasan/dosen/list', [\App\Http\Controllers\Admin\AkademikController::class, 'kepuasan_dosen_list'])->name('akademik.kepuasan.dosen.list');
     Route::resource('akademik', \App\Http\Controllers\Admin\AkademikController::class);
 
     // Route Group Admin Fakultas
@@ -53,6 +67,10 @@ Route::name('admin.')->prefix('admin')->middleware(['auth', 'isAdmin'])->group(f
 
     // Route Group Admin Sarpras
     Route::get('/sarpras/list', [\App\Http\Controllers\Admin\SarprasController::class, 'list'])->name('sarpras.list');
+    Route::get('/sarpras/mahasiswa', [\App\Http\Controllers\Admin\SarprasController::class, 'mahasiswa'])->name('sarpras.mahasiswa.index');
+    Route::get('/sarpras/mahasiswa/list', [\App\Http\Controllers\Admin\SarprasController::class, 'mahasiswa_list'])->name('sarpras.mahasiswa.list');
+    Route::get('/sarpras/dosen', [\App\Http\Controllers\Admin\SarprasController::class, 'dosen'])->name('sarpras.dosen.index');
+    Route::get('/sarpras/dosen/list', [\App\Http\Controllers\Admin\SarprasController::class, 'dosen_list'])->name('sarpras.dosen.list');
     Route::resource('sarpras', \App\Http\Controllers\Admin\SarprasController::class);
 
     // Route Group Admin Visi Misi

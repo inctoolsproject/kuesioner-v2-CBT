@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\KuesionerAkademik;
+use App\Models\RespondenAkademik;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -233,5 +234,64 @@ class AkademikController extends Controller
         $kuesioner->delete();
 
         return response()->json(['status' => TRUE]);
+    }
+
+    public function mahasiswa()
+    {
+        $semester = KuesionerAkademik::select(DB::raw("DISTINCT semester, kegiatan, id"))->forMahasiswa()->get();
+        return view('admin.akademik.mahasiswa', compact('semester'));
+    }
+
+    public function mahasiswa_list(Request $request)
+    {
+        $data = RespondenAkademik::selectRaw('nama_matkul, kode_matkul, kelas, nama_dosen, CAST(ROUND(AVG(indeks), 2) AS DEC(10, 2)) indeks')->where('tipe', 'mahasiswa')->where('kuesioner_akademik_id', $request->get('filter1'), '', 'and')->groupBy('kode_matkul', 'nama_matkul', 'kelas', 'nama_dosen', 'indeks')->get();
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->make(true);
+    }
+
+    public function dosen()
+    {
+        $semester = KuesionerAkademik::select(DB::raw("DISTINCT semester, kegiatan, id"))->forDosen()->get();
+        return view('admin.akademik.dosen', compact('semester'));
+    }
+
+    public function dosen_list(Request $request)
+    {
+        $data = RespondenAkademik::selectRaw('nama_matkul, kode_matkul, kelas, nama, CAST(ROUND(AVG(indeks), 2) AS DEC(10, 2)) indeks')->where('tipe', 'dosen')->where('kuesioner_akademik_id', $request->get('filter1'), '', 'and')->groupBy('kode_matkul', 'nama_matkul', 'kelas', 'nama', 'indeks')->get();
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->make(true);
+    }
+
+    public function kepuasan_dosen()
+    {
+        $semester = KuesionerAkademik::select(DB::raw("DISTINCT semester, kegiatan, id"))->where('tipe', 'dosen')->get();
+        return view('admin.akademik.kepuasan.dosen', compact('semester'));
+    }
+
+    public function kepuasan_dosen_list(Request $request)
+    {
+        $data = DB::table('responden_akademik')->select(DB::raw('responden_akademik.nama, responden_akademik.username, prodi.nama as prodi, CAST(ROUND(AVG(indeks), 2) AS DEC(10, 2)) indeks'))->join('prodi', function ($join) {
+            $join->on('prodi.kode', '=', 'responden_akademik.kode_prodi')->on('prodi.kode_fakultas', '=', 'responden_akademik.kode_fakultas');
+        })->where('responden_akademik.tipe', 'dosen')->where('responden_akademik.kuesioner_akademik_id', $request->get('filter1'), '', 'and')->groupBy('responden_akademik.nama', 'responden_akademik.username', 'prodi.nama', 'indeks')->get();
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->make(true);
+    }
+
+    public function kepuasan_mahasiswa()
+    {
+        $semester = KuesionerAkademik::select(DB::raw("DISTINCT semester, kegiatan, id"))->where('tipe', 'mahasiswa')->get();
+        return view('admin.akademik.kepuasan.mahasiswa', compact('semester'));
+    }
+
+    public function kepuasan_mahasiswa_list(Request $request)
+    {
+        $data = DB::select("call kepuasan_mahasiswa_per_prodi({$request->get('filter1')})");
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->make(true);
     }
 }

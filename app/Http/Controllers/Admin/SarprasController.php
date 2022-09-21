@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\KuesionerSarpras;
+use App\Models\RespondenSarpras;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -438,5 +439,33 @@ class SarprasController extends Controller
         $kuesioner->delete();
 
         return response()->json(['status' => TRUE]);
+    }
+
+    public function mahasiswa()
+    {
+        $semester = KuesionerSarpras::select(DB::raw("DISTINCT semester, kegiatan, id"))->forMahasiswa()->get();
+        return view('admin.sarpras.mahasiswa', compact('semester'));
+    }
+
+    public function mahasiswa_list(Request $request)
+    {
+        $data = RespondenSarpras::selectRaw('username, nama, CAST(ROUND(AVG(indeks), 2) AS DEC(10, 2)) indeks')->where('tipe', 'mahasiswa')->where('kuesioner_sarpras_id', $request->get('filter1'), '', 'and')->groupBy('username', 'nama', 'indeks')->get();
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->make(true);
+    }
+
+    public function dosen()
+    {
+        $semester = KuesionerSarpras::select(DB::raw("DISTINCT semester, kegiatan, id"))->forDosen()->get();
+        return view('admin.sarpras.dosen', compact('semester'));
+    }
+
+    public function dosen_list(Request $request)
+    {
+        $data = RespondenSarpras::selectRaw('username, nama, CAST(ROUND(AVG(indeks), 2) AS DEC(10, 2)) indeks')->where('tipe', 'dosen')->where('kuesioner_sarpras_id', $request->get('filter1'), '', 'and')->groupBy('username', 'nama', 'indeks')->get();
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->make(true);
     }
 }
