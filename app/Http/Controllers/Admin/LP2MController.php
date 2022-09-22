@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\KuesionerLP2M;
+use App\Models\RespondenLP2M;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -248,5 +249,19 @@ class LP2MController extends Controller
         $kuesioner->delete();
 
         return response()->json(['status' => TRUE]);
+    }
+
+    public function dosen()
+    {
+        $semester = KuesionerLP2M::select(DB::raw("DISTINCT semester, kegiatan, id"))->forDosen()->get();
+        return view('admin.lp2m.dosen', compact('semester'));
+    }
+
+    public function dosen_list(Request $request)
+    {
+        $data = RespondenLP2M::selectRaw('username, nama, CAST(ROUND(AVG(indeks), 2) AS DEC(10, 2)) indeks')->where('tipe', 'dosen')->where('kuesioner_lp2m_id', $request->get('filter1'), '', 'and')->groupBy('username', 'nama', 'indeks')->get();
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->make(true);
     }
 }

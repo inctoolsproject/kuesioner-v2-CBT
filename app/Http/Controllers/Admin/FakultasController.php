@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\KuesionerFakultas;
+use App\Models\RespondenFakultas;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -353,5 +354,19 @@ class FakultasController extends Controller
         $kuesioner->delete();
 
         return response()->json(['status' => TRUE]);
+    }
+
+    public function dosen()
+    {
+        $semester = KuesionerFakultas::select(DB::raw("DISTINCT semester, kegiatan, id"))->forDosen()->get();
+        return view('admin.fakultas.dosen', compact('semester'));
+    }
+
+    public function dosen_list(Request $request)
+    {
+        $data = RespondenFakultas::selectRaw('username, nama, CAST(ROUND(AVG(indeks), 2) AS DEC(10, 2)) indeks')->where('tipe', 'dosen')->where('kuesioner_fakultas_id', $request->get('filter1'), '', 'and')->groupBy('username', 'nama', 'indeks')->get();
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->make(true);
     }
 }

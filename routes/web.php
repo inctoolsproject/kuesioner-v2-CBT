@@ -59,10 +59,15 @@ Route::name('admin.')->prefix('admin')->middleware(['auth', 'isAdmin'])->group(f
 
     // Route Group Admin Fakultas
     Route::get('/fakultas/list', [\App\Http\Controllers\Admin\FakultasController::class, 'list'])->name('fakultas.list');
+    Route::get('/fakultas/dosen', [\App\Http\Controllers\Admin\FakultasController::class, 'dosen'])->name('fakultas.dosen.index');
+    Route::get('/fakultas/dosen/list', [\App\Http\Controllers\Admin\FakultasController::class, 'dosen_list'])->name('fakultas.dosen.list');
+
     Route::resource('fakultas', \App\Http\Controllers\Admin\FakultasController::class);
 
     // Route Group Admin LP2M
     Route::get('/lp2m/list', [\App\Http\Controllers\Admin\LP2MController::class, 'list'])->name('lp2m.list');
+    Route::get('/lp2m/dosen', [\App\Http\Controllers\Admin\LP2MController::class, 'dosen'])->name('lp2m.dosen.index');
+    Route::get('/lp2m/dosen/list', [\App\Http\Controllers\Admin\LP2MController::class, 'dosen_list'])->name('lp2m.dosen.list');
     Route::resource('lp2m', \App\Http\Controllers\Admin\LP2MController::class);
 
     // Route Group Admin Sarpras
