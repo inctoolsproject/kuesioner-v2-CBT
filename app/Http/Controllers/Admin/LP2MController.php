@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\KuesionerLP2MExport;
 use App\Http\Controllers\Controller;
 use App\Models\KuesionerLP2M;
 use App\Models\RespondenLP2M;
@@ -9,6 +10,7 @@ use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LP2MController extends Controller
 {
@@ -249,6 +251,19 @@ class LP2MController extends Controller
         $kuesioner->delete();
 
         return response()->json(['status' => TRUE]);
+    }
+
+    public function export(Request $request)
+    {
+        if ($request->get('filter1') != "<>") {
+            $kuesioner = KuesionerLP2M::find($request->get('filter1'));
+            $role = $kuesioner->tipe != null ? Str::ucfirst($kuesioner->tipe) : "All";
+            $tahun = $kuesioner->semester . ' ' . $kuesioner->kegiatan;
+            $filename = 'Data Kuesioner LP2M ' . $role . ' ' . $tahun . '.xlsx';
+        } else {
+            $filename = 'Data Kuesioner LP2M ' . Str::ucfirst($request->get('filter2')) . ' All.xlsx';
+        }
+        return Excel::download(new KuesionerLP2MExport($request->get('filter1'), $request->get('filter2')), $filename);
     }
 
     public function dosen()

@@ -44,21 +44,26 @@ Route::name('admin.')->prefix('admin')->middleware(['auth', 'isAdmin'])->group(f
     // Kuesioner Mahasiswa
     Route::get('/akademik/mahasiswa', [\App\Http\Controllers\Admin\AkademikController::class, 'mahasiswa'])->name('akademik.mahasiswa.index');
     Route::get('/akademik/mahasiswa/list', [\App\Http\Controllers\Admin\AkademikController::class, 'mahasiswa_list'])->name('akademik.mahasiswa.list');
+    Route::get('/akademik/mahasiswa/export', [\App\Http\Controllers\Admin\AkademikController::class, 'mahasiswa_export'])->name('akademik.mahasiswa.export');
     // Kepuasan Mahasiswa Per Prodi
     Route::get('/akademik/kepuasan/mahasiswa', [\App\Http\Controllers\Admin\AkademikController::class, 'kepuasan_mahasiswa'])->name('akademik.kepuasan.mahasiswa.index');
     Route::get('/akademik/kepuasan/mahasiswa/list', [\App\Http\Controllers\Admin\AkademikController::class, 'kepuasan_mahasiswa_list'])->name('akademik.kepuasan.mahasiswa.list');
+    Route::get('/akademik/kepuasan/mahasiswa/export', [\App\Http\Controllers\Admin\AkademikController::class, 'kepuasan_mahasiswa_export'])->name('akademik.kepuasan.mahasiswa.export');
 
 
     // Kuesioner Dosen
     Route::get('/akademik/dosen', [\App\Http\Controllers\Admin\AkademikController::class, 'dosen'])->name('akademik.dosen.index');
     Route::get('/akademik/dosen/list', [\App\Http\Controllers\Admin\AkademikController::class, 'dosen_list'])->name('akademik.dosen.list');
+    Route::get('/akademik/dosen/export', [\App\Http\Controllers\Admin\AkademikController::class, 'dosen_export'])->name('akademik.dosen.export');
     // Kepuasan Dosen Per Prodi
     Route::get('/akademik/kepuasan/dosen', [\App\Http\Controllers\Admin\AkademikController::class, 'kepuasan_dosen'])->name('akademik.kepuasan.dosen.index');
     Route::get('/akademik/kepuasan/dosen/list', [\App\Http\Controllers\Admin\AkademikController::class, 'kepuasan_dosen_list'])->name('akademik.kepuasan.dosen.list');
+    Route::get('/akademik/kepuasan/dosen/export', [\App\Http\Controllers\Admin\AkademikController::class, 'kepuasan_dosen_export'])->name('akademik.kepuasan.dosen.export');
     Route::resource('akademik', \App\Http\Controllers\Admin\AkademikController::class);
 
     // Route Group Admin Fakultas
     Route::get('/fakultas/list', [\App\Http\Controllers\Admin\FakultasController::class, 'list'])->name('fakultas.list');
+    Route::get('/fakultas/export', [\App\Http\Controllers\Admin\FakultasController::class, 'export'])->name('fakultas.export');
     Route::get('/fakultas/dosen', [\App\Http\Controllers\Admin\FakultasController::class, 'dosen'])->name('fakultas.dosen.index');
     Route::get('/fakultas/dosen/list', [\App\Http\Controllers\Admin\FakultasController::class, 'dosen_list'])->name('fakultas.dosen.list');
 
@@ -66,12 +71,14 @@ Route::name('admin.')->prefix('admin')->middleware(['auth', 'isAdmin'])->group(f
 
     // Route Group Admin LP2M
     Route::get('/lp2m/list', [\App\Http\Controllers\Admin\LP2MController::class, 'list'])->name('lp2m.list');
+    Route::get('/lp2m/export', [\App\Http\Controllers\Admin\LP2MController::class, 'export'])->name('lp2m.export');
     Route::get('/lp2m/dosen', [\App\Http\Controllers\Admin\LP2MController::class, 'dosen'])->name('lp2m.dosen.index');
     Route::get('/lp2m/dosen/list', [\App\Http\Controllers\Admin\LP2MController::class, 'dosen_list'])->name('lp2m.dosen.list');
     Route::resource('lp2m', \App\Http\Controllers\Admin\LP2MController::class);
 
     // Route Group Admin Sarpras
     Route::get('/sarpras/list', [\App\Http\Controllers\Admin\SarprasController::class, 'list'])->name('sarpras.list');
+    Route::get('/sarpras/export', [\App\Http\Controllers\Admin\SarprasController::class, 'export'])->name('sarpras.export');
     Route::get('/sarpras/mahasiswa', [\App\Http\Controllers\Admin\SarprasController::class, 'mahasiswa'])->name('sarpras.mahasiswa.index');
     Route::get('/sarpras/mahasiswa/list', [\App\Http\Controllers\Admin\SarprasController::class, 'mahasiswa_list'])->name('sarpras.mahasiswa.list');
     Route::get('/sarpras/dosen', [\App\Http\Controllers\Admin\SarprasController::class, 'dosen'])->name('sarpras.dosen.index');

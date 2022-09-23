@@ -39,6 +39,10 @@
                                         <i class="fa-regular fa-trash-can text-danger"></i>
                                         Hapus Filter
                                     </button>
+                                    <button id="export" class="btn app-btn-secondary text-success border border-success">
+                                        <i class="fa-solid fa-file-export text-success"></i>
+                                        Export
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -134,6 +138,12 @@
             });
             $("#filter1").on('change', function() {
                 table.draw();
+            });
+            $("#export").on('click', function(e) {
+                e.preventDefault();
+                let filter1 = $('#filter1').val() ? $('#filter1').val() : '<>';
+                window.open("{{ route('admin.sarpras.export') }}" + "?filter1=" + filter1 +
+                    "&filter2=dosen", '_blank');
             });
             $.fn.dataTable.ext.errMode = function(settings, helpPage, message) {
                 console.log(message);

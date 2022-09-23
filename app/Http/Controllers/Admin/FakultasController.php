@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\KuesionerFakultasExport;
 use App\Http\Controllers\Controller;
 use App\Models\KuesionerFakultas;
 use App\Models\RespondenFakultas;
@@ -9,6 +10,7 @@ use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class FakultasController extends Controller
 {
@@ -354,6 +356,19 @@ class FakultasController extends Controller
         $kuesioner->delete();
 
         return response()->json(['status' => TRUE]);
+    }
+
+    public function export(Request $request)
+    {
+        if ($request->get('filter1') != "<>") {
+            $kuesioner = KuesionerFakultas::find($request->get('filter1'));
+            $role = $kuesioner->tipe != null ? Str::ucfirst($kuesioner->tipe) : "All";
+            $tahun = $kuesioner->semester . ' ' . $kuesioner->kegiatan;
+            $filename = 'Data Kuesioner Fakultas ' . $role . ' ' . $tahun . '.xlsx';
+        } else {
+            $filename = 'Data Kuesioner Fakultas ' . Str::ucfirst($request->get('filter2')) . ' All.xlsx';
+        }
+        return Excel::download(new KuesionerFakultasExport($request->get('filter1'), $request->get('filter2')), $filename);
     }
 
     public function dosen()

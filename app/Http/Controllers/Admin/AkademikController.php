@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\KepuasanDosenExport;
+use App\Exports\KepuasanMahasiswaExport;
+use App\Exports\KuesionerAkademikDosenExport;
+use App\Exports\KuesionerAkademikMahasiswa;
+use App\Exports\KuesionerAkademikMahasiswaExport;
 use App\Http\Controllers\Controller;
 use App\Models\KuesionerAkademik;
 use App\Models\RespondenAkademik;
@@ -9,6 +14,7 @@ use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AkademikController extends Controller
 {
@@ -250,6 +256,14 @@ class AkademikController extends Controller
             ->make(true);
     }
 
+    public function mahasiswa_export(Request $request)
+    {
+        $kuesioner = KuesionerAkademik::find($request->get('filter1'));
+        $tahun = $request->get('filter1') != "<>" ? $kuesioner->semester . ' ' . $kuesioner->kegiatan : 'All';
+        $filename = 'Data Kuesioner Akademik Mahasiswa ' . $tahun . '.xlsx';
+        return Excel::download(new KuesionerAkademikMahasiswaExport($request->get('filter1')), $filename);
+    }
+
     public function dosen()
     {
         $semester = KuesionerAkademik::select(DB::raw("DISTINCT semester, kegiatan, id"))->forDosen()->get();
@@ -262,6 +276,14 @@ class AkademikController extends Controller
         return DataTables::of($data)
             ->addIndexColumn()
             ->make(true);
+    }
+
+    public function dosen_export(Request $request)
+    {
+        $kuesioner = KuesionerAkademik::find($request->get('filter1'));
+        $tahun = $request->get('filter1') != "<>" ? $kuesioner->semester . ' ' . $kuesioner->kegiatan : 'All';
+        $filename = 'Data Kuesioner Akademik Dosen ' . $tahun . '.xlsx';
+        return Excel::download(new KuesionerAkademikDosenExport($request->get('filter1')), $filename);
     }
 
     public function kepuasan_dosen()
@@ -281,6 +303,14 @@ class AkademikController extends Controller
             ->make(true);
     }
 
+    public function kepuasan_dosen_export(Request $request)
+    {
+        $kuesioner = KuesionerAkademik::find($request->get('filter1'));
+        $tahun = $request->get('filter1') != "<>" ? $kuesioner->semester . ' ' . $kuesioner->kegiatan : 'All';
+        $filename = 'Kepuasan Dosen Per Prodi ' . $tahun . '.xlsx';
+        return Excel::download(new KepuasanDosenExport($request->get('filter1')), $filename);
+    }
+
     public function kepuasan_mahasiswa()
     {
         $semester = KuesionerAkademik::select(DB::raw("DISTINCT semester, kegiatan, id"))->where('tipe', 'mahasiswa')->get();
@@ -293,5 +323,13 @@ class AkademikController extends Controller
         return DataTables::of($data)
             ->addIndexColumn()
             ->make(true);
+    }
+
+    public function kepuasan_mahasiswa_export(Request $request)
+    {
+        $kuesioner = KuesionerAkademik::find($request->get('filter1'));
+        $tahun = $request->get('filter1') != "<>" ? $kuesioner->semester . ' ' . $kuesioner->kegiatan : 'All';
+        $filename = 'Kepuasan Mahasiswa Per Prodi ' . $tahun . '.xlsx';
+        return Excel::download(new KepuasanMahasiswaExport($request->get('filter1')), $filename);
     }
 }

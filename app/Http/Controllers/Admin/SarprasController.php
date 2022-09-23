@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\KuesionerSarprasExport;
 use App\Http\Controllers\Controller;
 use App\Models\KuesionerSarpras;
 use App\Models\RespondenSarpras;
@@ -9,6 +10,7 @@ use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SarprasController extends Controller
 {
@@ -439,6 +441,19 @@ class SarprasController extends Controller
         $kuesioner->delete();
 
         return response()->json(['status' => TRUE]);
+    }
+
+    public function export(Request $request)
+    {
+        if ($request->get('filter1') != "<>") {
+            $kuesioner = KuesionerSarpras::find($request->get('filter1'));
+            $role = $kuesioner->tipe != null ? Str::ucfirst($kuesioner->tipe) : "All";
+            $tahun = $kuesioner->semester . ' ' . $kuesioner->kegiatan;
+            $filename = 'Data Kuesioner Sarpras ' . $role . ' ' . $tahun . '.xlsx';
+        } else {
+            $filename = 'Data Kuesioner Sarpras ' . Str::ucfirst($request->get('filter2')) . ' All.xlsx';
+        }
+        return Excel::download(new KuesionerSarprasExport($request->get('filter1'), $request->get('filter2')), $filename);
     }
 
     public function mahasiswa()
