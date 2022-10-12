@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\TemplatePertanyaanTrait;
 use App\Models\KuesionerVisiMisi;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ use Illuminate\Support\Str;
 
 class VisiMisiController extends Controller
 {
+	use TemplatePertanyaanTrait;
     public function index()
     {
         return view('admin.visi-misi.index');
@@ -79,181 +81,7 @@ class VisiMisiController extends Controller
                 'kegiatan' => $request->kegiatan,
             ]);
 
-            $pertanyaan_visi_misi = array(
-                array(
-                    "pertanyaan" => "Berapa lama Bpk/Ibu/Sdr/i sudah bergabung dengan Itenas?",
-                    "nomor" => 1,
-                    "tipe" => 1,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ),
-                array(
-                    "pertanyaan" => "Apakah Anda pernah membaca Visi, Misi dan Tujuan Itenas?",
-                    "nomor" => 2,
-                    "tipe" => 1,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ),
-                array(
-                    "pertanyaan" => "Jika jawaban No. 2 adalah Pernah, pilih semua media sumber Bpk/Ibu/Sdr/imendapatkan informasi tentang Visi, Misi dan Tujuan Itenas?",
-                    "nomor" => 3,
-                    "tipe" => 2,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ),
-                array(
-                    "pertanyaan" => "Menurut Anda, Visi, Misi dan Tujuan telah tercermin pada",
-                    "nomor" => 4,
-                    "tipe" => 1,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ),
-                array(
-                    "pertanyaan" => "Visi Itenas",
-                    "nomor" => 5,
-                    "tipe" => 1,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ),
-                array(
-                    "pertanyaan" => "Misi Itenas",
-                    "nomor" => 6,
-                    "tipe" => 1,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ),
-                array(
-                    "pertanyaan" => "Tujuan Itenas",
-                    "nomor" => 7,
-                    "tipe" => 1,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ),
-            );
-
-
-            $kuesioner->pertanyaan()->createMany($pertanyaan_visi_misi)->each(function ($item, $key) {
-                switch ($item->nomor) {
-                    case 1:
-                        $jawaban = [
-                            array(
-                                "jawaban" => "< 1 Tahun",
-                                "created_at" => now(),
-                                "updated_at" => now(),
-                            ),
-                            array(
-                                "jawaban" => "1-5 Tahun",
-                                "created_at" => now(),
-                                "updated_at" => now(),
-                            ),
-                            array(
-                                "jawaban" => "5-10 Tahun",
-                                "created_at" => now(),
-                                "updated_at" => now(),
-                            ),
-                            array(
-                                "jawaban" => "< 10 Tahun",
-                                "created_at" => now(),
-                                "updated_at" => now(),
-                            ),
-                        ];
-                        break;
-
-                    case 2:
-                        $jawaban = [
-                            array(
-                                "jawaban" => "Pernah",
-                                "created_at" => now(),
-                                "updated_at" => now(),
-                            ),
-                            array(
-                                "jawaban" => "Tidak Pernah",
-                                "created_at" => now(),
-                                "updated_at" => now(),
-                            ),
-                        ];
-                        break;
-
-                    case 3:
-                        $jawaban = [
-                            array(
-                                "jawaban" => "URL https://itenas.ac.id",
-                                "created_at" => now(),
-                                "updated_at" => now(),
-                            ),
-                            array(
-                                "jawaban" => "Buku panduan/pedoman",
-                                "created_at" => now(),
-                                "updated_at" => now(),
-                            ),
-                            array(
-                                "jawaban" => "Poster/banner/youtube",
-                                "created_at" => now(),
-                                "updated_at" => now(),
-                            ),
-                            array(
-                                "jawaban" => "Rapat-rapat rutin",
-                                "created_at" => now(),
-                                "updated_at" => now(),
-                            ),
-                            array(
-                                "jawaban" => "Media Sosial",
-                                "created_at" => now(),
-                                "updated_at" => now(),
-                            ),
-                        ];
-                        break;
-                    case 4:
-                        $jawaban = [
-                            array(
-                                "jawaban" => "Kurikulum",
-                                "created_at" => now(),
-                                "updated_at" => now(),
-                            ),
-                            array(
-                                "jawaban" => "Proses pembelajaran",
-                                "created_at" => now(),
-                                "updated_at" => now(),
-                            ),
-                            array(
-                                "jawaban" => "Penelitian dosen/mahasiswa",
-                                "created_at" => now(),
-                                "updated_at" => now(),
-                            ),
-                            array(
-                                "jawaban" => "Pengabdian kepada masyarakat dosen/mahasiswa",
-                                "created_at" => now(),
-                                "updated_at" => now(),
-                            ),
-                            array(
-                                "jawaban" => "Kompetensi dosen/tendik/mahasiswa",
-                                "created_at" => now(),
-                                "updated_at" => now(),
-                            ),
-                        ];
-                        break;
-                    default:
-                        $jawaban = [
-                            array(
-                                "jawaban" => "Kurang Paham",
-                                "created_at" => now(),
-                                "updated_at" => now(),
-                            ),
-                            array(
-                                "jawaban" => "Paham",
-                                "created_at" => now(),
-                                "updated_at" => now(),
-                            ),
-                            array(
-                                "jawaban" => "Sangat Paham",
-                                "created_at" => now(),
-                                "updated_at" => now(),
-                            ),
-                        ];
-                        break;
-                }
-                $item->jawaban()->createMany($jawaban);
-            });
+            $this->createPertanyaanVisiMisi($kuesioner);
         });
 
         return redirect()->route('admin.visi-misi.index')->with('success', 'Kuesioner berhasil dibuat');

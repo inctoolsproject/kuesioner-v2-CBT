@@ -8,6 +8,7 @@ use App\Exports\KuesionerAkademikDosenExport;
 use App\Exports\KuesionerAkademikMahasiswa;
 use App\Exports\KuesionerAkademikMahasiswaExport;
 use App\Http\Controllers\Controller;
+use App\Http\Traits\TemplatePertanyaanTrait;
 use App\Models\KuesionerAkademik;
 use App\Models\RespondenAkademik;
 use Yajra\DataTables\Facades\DataTables;
@@ -18,6 +19,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class AkademikController extends Controller
 {
+	use TemplatePertanyaanTrait;
     public function index()
     {
         return view('admin.akademik.index');
@@ -85,128 +87,7 @@ class AkademikController extends Controller
                 'kegiatan' => $request->kegiatan,
             ]);
 
-            $pertanyaan_akademik = [
-                array(
-                    "pertanyaan" => "Kesiapan dosen dalam mempersiapkan materi perkuliahan (video, hand out presentasi, bahan bacaan, atau link materi disematkan pada sistem e-learning)",
-                    "nomor" => 1,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ),
-                array(
-                    "pertanyaan" => "Kejelasan penyampaian materi perkuliahan (meeting online atau materi online)",
-                    "nomor" => 2,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ),
-                array(
-                    "pertanyaan" => "Kelengkapan materi perkuliahan dosen (RPS online, viseo, hand out presentasi, bahan bacaan, atau link materi disematkan pada sistem e-learning)",
-                    "nomor" => 3,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ),
-                array(
-                    "pertanyaan" => "Kemampuan dosen menggunakan media pembelajaran daring (penggunaan modul-modul di sistem e-learning dan berbagai media interaktif online lainnya)",
-                    "nomor" => 4,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ),
-                array(
-                    "pertanyaan" => "Kemampuan dosen menyampaikan materi perkuliahan dengan metode daring yang bervariasi (ceramah, diskusi, problem-based learning, project-based learning)",
-                    "nomor" => 5,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ),
-                array(
-                    "pertanyaan" => "Dosen mengembalikan hasil ujian/tugas dengan hasil penilaian yang obyektif",
-                    "nomor" => 6,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ),
-                array(
-                    "pertanyaan" => "Kecepatan dosen dalam membantu mahasiswa di waktu perkuliahan online",
-                    "nomor" => 7,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ),
-                array(
-                    "pertanyaan" => "Kesesuaian kehadiran dosen sesuai dengan jadwal yang telah ditentukan",
-                    "nomor" => 8,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ),
-                array(
-                    "pertanyaan" => "Kesesuaian materi kuliah dengan Rencana Perkuliahan",
-                    "nomor" => 9,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ),
-                array(
-                    "pertanyaan" => "Kesediaan dosen untuk membantu mahasiswa yang mengalami kesulitan di waktu perkuliahan online",
-                    "nomor" => 10,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ),
-                array(
-                    "pertanyaan" => "Kemudahan mengakses sistem informasi (sistem e-learning Moodle, sikad, website, dan layanan e-mail) dari luar lingkungan kampus",
-                    "nomor" => 11,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ),
-                array(
-                    "pertanyaan" => "Kualitas sarana dan prasarana perkuliahan secara daring (sistem e-learning Moodle, peralatan informasi, koneksi jaringan dan server)",
-                    "nomor" => 12,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ),
-                array(
-                    "pertanyaan" => "Dukungan pimpinan terhadap terbangunnya suasana akademik",
-                    "nomor" => 13,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ),
-                array(
-                    "pertanyaan" => "Dukungan dosen terhadap terbangunnya suasana akademik",
-                    "nomor" => 14,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ),
-                array(
-                    "pertanyaan" => "Layanan tendik terhadap terbangunnya suasana akademik",
-                    "nomor" => 15,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ),
-            ];
-
-            $kuesioner->pertanyaan()->createMany($pertanyaan_akademik)->each(function ($item, $key) {
-                $jawaban = [
-                    array(
-                        "jawaban" => "Sangat Tidak Puas",
-                        "nilai" => 1,
-                        "created_at" => now(),
-                        "updated_at" => now(),
-                    ),
-                    array(
-                        "jawaban" => "Tidak Puas",
-                        "nilai" => 2,
-                        "created_at" => now(),
-                        "updated_at" => now(),
-                    ),
-                    array(
-                        "jawaban" => "Puas",
-                        "nilai" => 3,
-                        "created_at" => now(),
-                        "updated_at" => now(),
-                    ),
-                    array(
-                        "jawaban" => "Sangat Puas",
-                        "nilai" => 4,
-                        "created_at" => now(),
-                        "updated_at" => now(),
-                    ),
-                ];
-                $item->jawaban()->createMany($jawaban);
-            });
+            $this->createPertanyaanAkademik($kuesioner);
         });
 
         return redirect()->route('admin.akademik.index')->with('success', 'Kuesioner berhasil dibuat');
