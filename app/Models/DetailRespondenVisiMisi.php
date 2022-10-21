@@ -15,4 +15,14 @@ class DetailRespondenVisiMisi extends Model
     {
         return $this->belongsTo(RespondenVisiMisi::class);
     }
+
+    public function pertanyaan()
+    {
+        return $this->belongsTo(PertanyaanVisiMisi::class, 'pertanyaan_visi_misi_id', 'id');
+    }
+
+    public function jawaban()
+    {
+        return $this->belongsTo(JawabanVisiMisi::class);
+    }
 }

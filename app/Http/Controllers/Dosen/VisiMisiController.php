@@ -24,7 +24,8 @@ class VisiMisiController extends Controller
         $kuesioner = KuesionerVisiMisi::with(['pertanyaan' => function ($query) {
             return $query->orderBy('nomor', 'asc');
         }, 'pertanyaan.jawaban'])->find($id);
-        $filled = RespondenVisiMisi::with('detail')->where('kuesioner_visi_misi_id', $id)->where('username', session('dosen')['nodosMSDOS'])->first();
+        $filled = RespondenVisiMisi::with('detail.pertanyaan')->where('kuesioner_visi_misi_id', $id)->where('username', session('dosen')['nodosMSDOS'])->first();
+        // dd($kuesioner, $filled);
         $userSession = session('dosen');
         return view('dosen.visi-misi.show', compact('kuesioner', 'userSession', 'filled'));
     }

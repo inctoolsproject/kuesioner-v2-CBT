@@ -207,8 +207,7 @@
                                                             <input type="radio" id="jawaban{{ $jawaban->id }}"
                                                                 class="form-check-input"
                                                                 name="responden[{{ $key }}][jawaban_visi_misi_id]"
-                                                                value="{{ $jawaban->id }}"
-                                                                @if ($jawaban->id == $filled->detail[$key]->jawaban_visi_misi_id) checked @endif readonly
+                                                                value="{{ $jawaban->id }}" readonly
                                                                 disabled>{{ $jawaban->jawaban }}
                                                         </label>
                                                     </div>
@@ -220,8 +219,7 @@
                                                     <input class="form-check-input" type="checkbox"
                                                         id="jawaban{{ $jawaban->id }}" class="form-check-input"
                                                         name="responden[{{ $key }}][jawaban_visi_misi_id]"
-                                                        value="{{ $jawaban->id }}"
-                                                        @if ($jawaban->id == $filled->detail[$key]->jawaban_visi_misi_id) checked @endif readonly disabled>
+                                                        value="{{ $jawaban->id }}" readonly disabled>
                                                     <label class="form-check-label" for="jawaban{{ $jawaban->id }}">
                                                         {{ $jawaban->jawaban }}
                                                     </label>
@@ -245,7 +243,7 @@
                                 <div class="col-12 col-md-9">
                                     <div class="form-floating">
                                         <textarea class="form-control @error('select-matkul') is-invalid @enderror" name="saran"
-                                            placeholder="Masukkan saran Anda" id="saran">{{ $filled->saran }}</textarea>
+                                            placeholder="Masukkan saran Anda" id="saran" disabled>{{ $filled->saran }}</textarea>
                                         <label for="saran">Saran</label>
                                     </div>
                                     @error('saran')
@@ -257,7 +255,6 @@
                             </div>
                         </div>
                     @endif
-
                 </div>
             </div>
         </div>

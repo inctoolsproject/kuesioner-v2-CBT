@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class DosenController extends Controller
 {
@@ -20,19 +21,24 @@ class DosenController extends Controller
             'password' => 'required|string|max:6',
         ]);
         // dd($request->all());
-        $response = Http::asForm()->post(config('app.urlApi') . 'dosen/login', [
-            'username' => $request->username,
-            'password' => $request->password,
-            'APIKEY' => config('app.API_KEY')
-        ]);
-        $resjson = $response->json();
-        if ($resjson['success']) {
-            $request->session()->put('dosen', $resjson['user']);
-            $request->session()->put('login', 'dosen');
-            $request->session()->put('islogin', true);
-            return redirect()->route('dosen.akademik.index');
-        } else {
-            return redirect()->route('auth.dosen.login')->with('error', 'Username atau Password salah!');
+        try {
+            $response = Http::asForm()->post(config('app.urlApi') . 'dosen/login', [
+                'username' => $request->username,
+                'password' => $request->password,
+                'APIKEY' => config('app.API_KEY')
+            ]);
+            $resjson = $response->json();
+            if ($resjson['success']) {
+                $request->session()->put('dosen', $resjson['user']);
+                $request->session()->put('login', 'dosen');
+                $request->session()->put('islogin', true);
+                return redirect()->route('dosen.akademik.index');
+            } else {
+                return redirect()->route('auth.dosen.login')->with('error', 'Username atau Password salah!');
+            }
+        } catch (\Exception $e) {
+            Log::error('[Login Dosen] ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Terjadi kesalahan, silahkan coba lagi!');
         }
     }
 }
