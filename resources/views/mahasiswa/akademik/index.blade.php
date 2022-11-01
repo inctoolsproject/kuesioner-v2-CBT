@@ -42,7 +42,6 @@
                             <button class="mt-3 btn btn-lg app-btn-primary" id="btn-start">Mulai</button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
